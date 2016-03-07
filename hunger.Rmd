@@ -1,0 +1,53 @@
+---
+title: "hunger"
+author: "issa fall"
+date: "March 7, 2016"
+output: html_document
+---
+
+##hunger dataset
+```{r,echo=TRUE}
+hunger<-read.csv("http://apps.who.int/gho/athena/data/GHO/WHOSIS_000008.csv? profile= text&filter =
+COUNTRY::SEX:")
+head(hunger)
+str(hunger)
+summary(hunger)
+hunger<-hunger[hunger$SEX != "BTSX", ]
+head(hunger)
+tail(hunger)
+str(hunger)
+```
+##Plot % hungry versus time
+```{r,echo=TRUE}
+lm<-lm(hunger$Numeric ~ hunger$YEAR)
+plot(hunger$YEAR, hunger$Numeric, pch =19, col ="blue")
+points(hunger$YEAR, hunger$Numeric, pch =19, col =((hunger$SEX == "MLE")*1+1))
+```
+
+
+##Color by male and female
+```{r,echo=TRUE}
+lmM<-lm(hunger$Numeric[hunger$SEX == "MLE"] ~ hunger$YEAR[hunger$SEX == "MLE"])
+lmM
+lmF<-lm(hunger$Numeric[hunger$SEX == "FMLE"] ~ hunger$YEAR[hunger$SEX == "FMLE"])
+lmF
+plot(hunger$YEAR, hunger$Numeric, pch =19)
+points(hunger$YEAR, hunger$Numeric, pch =19,col =((hunger$SEX =="MLE")*1+1))
+lines(hunger$YEAR[hunger$SEX == "MLE"], lmM$fitted, col ="black",lwd =3)
+lines(hunger$YEAR[hunger$SEX == "FMLE"], lmF$fitted, col ="red", lwd =3)
+```
+
+##Two lines,same slope in R
+```{r,echo=TRUE}
+lmBoth<-lm(hunger$Numeric ~ hunger$YEAR + hunger$SEX)
+lmBoth
+plot(hunger$YEAR, hunger$Numeric,pch =19)
+points(hunger$YEAR, hunger$Numeric, pch =19, col =((hunger$SEX == "MLE")*1+1))
+abline(c(lmBoth$coeff[1], lmBoth$coeff[2]),col ="red", lwd =3)
+abline(c(lmBoth$coeff[1] + lmBoth$coeff[3], lmBoth$coeff[2]), col ="black", lwd =3)
+sn<-hunger[hunger$COUNTRY == "SEN", ]
+sn
+summary(sn)
+     
+
+
