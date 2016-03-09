@@ -16,9 +16,16 @@ hunger<-hunger[hunger$SEX != "BTSX", ]
 head(hunger)
 tail(hunger)
 str(hunger)
+library(plyr)
+library(dplyr)
+library(ggplot2)
 ```
 ##Plot % hungry versus time
 ```{r,echo=TRUE}
+hunger %>%
+  select(YEAR, REGION, COUNTRY, SEX, Numeric) %>%
+  arrange(YEAR) 
+          
 lm<-lm(hunger$Numeric ~ hunger$YEAR)
 plot(hunger$YEAR, hunger$Numeric, pch =19, col ="blue")
 points(hunger$YEAR, hunger$Numeric, pch =19, col =((hunger$SEX == "MLE")*1+1))
