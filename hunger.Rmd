@@ -73,11 +73,13 @@ ddply(africa, "COUNTRY", function(x) c(count = nrow(x),
 sen<-hunger[hunger$COUNTRY == "SEN", ]
 summary(sen)
 ```
-##Let's make models
+##Let's have some information about senegal
 ```{r,echo=TRUE}
 africa %>%
   select(YEAR, REGION, COUNTRY, SEX, Numeric) %>%
-  filter(YEAR == 2005, COUNTRY == "SEN", SEX == "FMLE")
+  filter(YEAR == 2005, COUNTRY == "SEN", SEX == "MLE") 
+  
+
 
 
      
