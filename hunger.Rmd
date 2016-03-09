@@ -77,7 +77,8 @@ summary(sen)
 ```{r,echo=TRUE}
 africa %>%
   select(YEAR, REGION, COUNTRY, SEX, Numeric) %>%
-  filter(YEAR == 2005, COUNTRY == "SEN", SEX == "MLE") 
+  arrange(YEAR) %>%
+  filter(COUNTRY == "SEN")
   
 
 
