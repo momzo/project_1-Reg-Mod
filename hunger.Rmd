@@ -59,8 +59,9 @@ summary(lmBoth)
 ```
 ##Let's find out some information
 ```{r,echo=TRUE}
-library(dplyr)
 library(plyr)
+library(dplyr)
+library(ggplot2)
 ddply(hunger, "REGION", function(x) c(count =nrow(x),
                                       mean = mean(x$Numeric),
                                       median = median(x$Numeric)))
@@ -71,6 +72,13 @@ ddply(africa, "COUNTRY", function(x) c(count = nrow(x),
                                    median = median(x$Numeric)))
 sen<-hunger[hunger$COUNTRY == "SEN", ]
 summary(sen)
+```
+##Let's make models
+```{r,echo=TRUE}
+africa %>%
+  select(YEAR, REGION, COUNTRY, SEX, Numeric) %>%
+  filter(YEAR == 2005, COUNTRY == "SEN", SEX == "FMLE")
+
 
      
 
