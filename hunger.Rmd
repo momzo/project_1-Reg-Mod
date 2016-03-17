@@ -68,6 +68,22 @@ abline(c(lmBoth$coeff[1] + lmBoth$coeff[3], lmBoth$coeff[2] + lmBoth$coeff[4]), 
 ```{r,echo=TRUE}
 summary(lmBoth)
 ```
+##Let's make a graph
+```{r,echo=TRUE}
+
+##hunger<-hunger %>%
+##  group_by(REGION) 
+##  mutate(
+##    resid = lm(Numeric ~ factor(YEAR),na.action = na.exclude) %>%
+##      resid()
+    
+##  )  
+  
+##ggplot(hunger, aes(YEAR, Numeric)) +
+##  geom_line(aes(group = REGION), alpha = 1/5) +
+##  geom_line(stat = "summary", fun.y = "mean", colour ="red")
+```
+
 ##Let's find out some information
 ```{r,echo=TRUE}
 
@@ -84,19 +100,20 @@ summary(sen)
 ```
 ##Let's have some information about senegal
 ```{r,echo=TRUE}
-africa %>%
+africa2<-hunger %>%
   select(YEAR ,REGION, COUNTRY , SEX, Numeric) %>%
   arrange(YEAR) %>%
   filter(COUNTRY == "SEN", SEX == "FMLE")
+africa2
 
 
 library(dygraphs)
-africa %>%
-  select(YEAR, SEX, Numeric) %>%
-  filter(YEAR == 2005:2011, SEX == "FMLE")
 
-##dygraph(africa, main ="Female hunger") 
-##  dyRangeSelector()
+##dygraph(africa2, main ="Male and Female hunger") %>%
+##  dySeries("SEX", label ="FMLE") %>%
+##  dySeries("SEX", label ="MLE") %>%
+##  dyRangeSelector(height = 20)%>%
+##  dygraph(africa2)
 ```
   
 
