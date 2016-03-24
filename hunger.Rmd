@@ -114,6 +114,10 @@ library(dygraphs)
 ##  dySeries("SEX", label ="MLE") %>%
 ##  dyRangeSelector(height = 20)%>%
 ##  dygraph(africa2)
+
+index = which(africa$Numeric > 16.71 )
+length(index)
+head(africa[index, ],4)
 ```
   
 
